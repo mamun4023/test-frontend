@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+    const navigate = useNavigate();
     const [text, setText] = useState("");
     const [result, setResult] = useState<any>();
     const [loading, setLoading] = useState(false)
@@ -24,8 +26,17 @@ export default function Dashboard() {
     };
 
 
+    const logoutHandler = ()=>{
+            localStorage.removeItem('token')
+            navigate('/sign-in');
+    }
+
     return (
-        <div className="h-screen flex flex-row justify-center">
+        <div className="h-screen"> 
+            <div className="flex justify-end">
+                <button onClick={logoutHandler} className="m-4 p-2 border-[1px] rounded-md hover:bg-gray-200 border-gray-500" >Logout</button>
+            </div>
+        <div className=" flex flex-row justify-center">
            
             <div>
                 <h1 className="text-center m-2 text-[40px]">Analyze your Text</h1>
@@ -60,6 +71,7 @@ export default function Dashboard() {
             </div>
 
            
+        </div>
         </div>
     );
 }
