@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function SignIn() {
-  
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -15,16 +15,18 @@ export default function SignIn() {
             password,
         };
 
-        axios.post( `${import.meta.env.VITE_BASE_URL}/user/sign-in`, data)
-            .then(res=>{
+        axios
+            .post(`${import.meta.env.VITE_BASE_URL}/user/sign-in`, data)
+            .then((res) => {
                 const resData = res?.data?.data;
-                localStorage.setItem('token', resData?.token)
-                window.location.replace("/dashboard")
-            }).catch(err=>{
-                console.log(err)
+                localStorage.setItem("token", resData?.token);
+                window.location.replace("/dashboard");
             })
+            .catch((err) => {
+                const errMsg = err?.response?.data?.message;
+                toast.error(errMsg);
+            });
     };
-
 
     return (
         <div className="h-screen flex justify-center  items-center">
