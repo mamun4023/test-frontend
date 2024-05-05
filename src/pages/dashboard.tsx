@@ -12,7 +12,9 @@ export default function Dashboard() {
         e.preventDefault();
         setLoading(true)
         axios
-            .post(`${import.meta.env.VITE_BASE_URL}/analyzer`, { text })
+            .post(`${import.meta.env.VITE_BASE_URL}/analyzer`, { text }, {headers: {
+                authorization: `Bearer ${localStorage.getItem("token")}`
+            }})
             .then((res) => {
                 const resData = res?.data?.data;
                 // console.log(resData)
