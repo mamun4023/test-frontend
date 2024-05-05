@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function SignUp() {
     const [name, setName] = useState('')
@@ -19,9 +20,11 @@ export default function SignUp() {
         axios.post(`${import.meta.env.VITE_BASE_URL}/user/sign-up`, data)
             .then(res=>{
                 console.log(res)
+                toast.success(res?.data?.message)
                 window.location.replace("/sign-in")
             }).catch(err=>{
-                console.log(err)
+                const errMsg = err?.response?.data?.message;
+                toast.error(errMsg);
             })
     };
 

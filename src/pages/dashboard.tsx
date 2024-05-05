@@ -54,9 +54,13 @@ export default function Dashboard() {
                         <div className="flex justify-end">
                             <button
                                 disabled={loading || text?.length < 1}
-                                className="bg-black  text-white px-4 py-1 rounded-md"
+                                className={`bg-black  text-white px-4 py-1 rounded-md ${
+                                    loading || text?.length < 1
+                                        ? "bg-gray-400 cursor-not-allowed"
+                                        : null
+                                }`}
                             >
-                                {loading ? "Analyzing..." : "Analyze"}
+                                Analyze
                             </button>
                         </div>
                     </form>
